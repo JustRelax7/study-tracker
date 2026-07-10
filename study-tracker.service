@@ -1,0 +1,12 @@
+[Unit]
+Description=Webcam Study Tracker
+After=graphical-session.target
+
+[Service]
+ExecStart=/home/aman_gupta/study-tracker/venv/bin/python -u /home/aman_gupta/study-tracker/tracker_daemon.py
+Restart=always
+KillSignal=SIGINT
+RestartSec=10
+
+[Install]
+WantedBy=default.target

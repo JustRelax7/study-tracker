@@ -1,0 +1,21 @@
+#!/bin/sh
+# Systemd Hardware Sleep & Wake Hook for aman_gupta
+
+if [ "$1" = "pre" ]; then
+    # LAPTOP LID CLOSES
+    sudo -u aman_gupta \
+      XDG_RUNTIME_DIR=/run/user/1000 \
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+      systemctl --user stop study-tracker
+
+elif [ "$1" = "post" ]; then
+    #  LAPTOP LID OPENS
+    # Automatically resurrect the tracking daemon the moment the OS resumes execution.
+    sudo -u aman_gupta \
+      XDG_RUNTIME_DIR=/run/user/1000 \
+      DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus \
+      systemctl --user start study-tracker
+fi
+
+exit 0
+
